@@ -144,9 +144,9 @@ class SimNN(NeuralNet):
         board_rep = self.make_one_shot(board)
         if args.cuda:
             board_rep = board_rep.contiguous().cuda()
-        self.network.eval()
+        self.nnet.eval()
         with torch.no_grad():
-            pi, v = self.network(board_rep)
+            pi, v = self.nnet(board_rep)
 
         return torch.exp(pi).data.cpu().numpy()[0], v.data.cpu().numpy()[0]
 
@@ -158,7 +158,7 @@ class SimNN(NeuralNet):
         else:
             print("Checkpoint Directory exists! ")
         torch.save({
-            'state_dict': self.network.state_dict(),
+            'state_dict': self.nnet.state_dict(),
         }, filepath)
 
     def load_checkpoint(self, folder='checkpoint', filename='checkpoint.pth.tar'):
@@ -168,4 +168,4 @@ class SimNN(NeuralNet):
             raise ValueError("No model in path {}".format(filepath))
         map_location = None if args.cuda else 'cpu'
         checkpoint = torch.load(filepath, map_location=map_location)
-        self.network.load_state_dict(checkpoint['state_dict'])
+        self.nnet.load_state_dict(checkpoint['state_dict'])
