@@ -7,6 +7,8 @@ import coloredlogs
 
 from Coach import Coach
 from utils import *
+from sim_pencil_game_alpha_go_zero.SimGameState import SimGameState as Game
+from sim_pencil_game_alpha_go_zero.SimNN import SimNN as nn
 
 log = logging.getLogger(__name__)
 

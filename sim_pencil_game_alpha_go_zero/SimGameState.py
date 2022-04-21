@@ -5,28 +5,29 @@ import numpy as np
 from typing import Tuple
 import logging
 
-_ACTION_TO_TUPLE = {
-    0: (0, 1),
-    1: (0, 2),
-    2: (0, 3),
-    3: (0, 4),
-    4: (0, 5),
-    5: (1, 2),
-    6: (1, 3),
-    7: (1, 4),
-    8: (1, 5),
-    9: (2, 3),
-    10: (2, 4),
-    11: (2, 5),
-    12: (3, 4),
-    13: (3, 5),
-    14: (4, 5)
-}
 
 class SimGameState(Game):
 
     PLAYER1 = 1
     PLAYER2 = -1
+
+    ACTION_TO_TUPLE = {
+        0: (0, 1),
+        1: (0, 2),
+        2: (0, 3),
+        3: (0, 4),
+        4: (0, 5),
+        5: (1, 2),
+        6: (1, 3),
+        7: (1, 4),
+        8: (1, 5),
+        9: (2, 3),
+        10: (2, 4),
+        11: (2, 5),
+        12: (3, 4),
+        13: (3, 5),
+        14: (4, 5)
+    }
 
     def getInitBoard(self):
         sg = SimGame()
@@ -38,12 +39,11 @@ class SimGameState(Game):
     def getActionSize(self):
         return 15
 
-    @staticmethod
-    def numeric_action_to_tuple(action: int) -> Tuple[int, int]:
-        return _ACTION_TO_TUPLE[action]
+    def numeric_action_to_tuple(self, action: int) -> Tuple[int, int]:
+        return self.ACTION_TO_TUPLE[action]
 
     def getNextState(self, board: np, player, action):
-        if 0 <= action <= 15:
+        if 0 <= action <= 14:
             logging.error(f"Invalid action {action} given!")
             return board, player
 
@@ -62,7 +62,7 @@ class SimGameState(Game):
         # player doesn't actually matter for valid moves
         valids = [0]*self.getActionSize()
         sg = SimGame(board)
-        tuple_to_action = dict(zip(_ACTION_TO_TUPLE.values(), _ACTION_TO_TUPLE.keys()))
+        tuple_to_action = dict(zip(self.ACTION_TO_TUPLE.values(), self.ACTION_TO_TUPLE.keys()))
         legal_moves = sg.get_legal_moves(player)
         for legal_move in legal_moves:
             action_number = tuple_to_action[legal_move]
@@ -92,8 +92,3 @@ class SimGameState(Game):
 
     def stringRepresentation(self, board):
         return board.tostring()
-
-
-
-    
-
