@@ -1,0 +1,9 @@
+cffi
+coloredlogs
+cython
+flask
+gitpython
+pandas
+scipy
+scikit-learn
+scikit-image
