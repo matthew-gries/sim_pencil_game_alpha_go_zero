@@ -15,7 +15,7 @@ class SimNNArch(nn.Module):
         self.fc2 = nn.Linear(256, 256)
         self.fc3 = nn.Linear(256, 256)
         self.policy_fc = nn.Linear(256, self.game.getActionSize())
-        self.value_fc =  nn.Linear(256, 1)
+        self.value_fc = nn.Linear(256, 1)
 
     def forward(self, x):
         """x should be the one-hot encoding of each unique edge, size 15 x 3,
@@ -30,7 +30,7 @@ class SimNNArch(nn.Module):
         x = self.relu(self.fc1(x))
         x = self.relu(self.fc2(x))
         x = self.relu(self.fc3(x))
-        pi = torch.log_softmax(self.policy_fc(x), dim=1)
+        pi = torch.log_softmax(self.policy_fc(x), dim=0)
         v = torch.tanh(self.value_fc(x))
 
         return pi, v

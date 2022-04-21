@@ -29,6 +29,24 @@ class SimGameState(Game):
         14: (4, 5)
     }
 
+    VALID_ACTIONS = {
+        (0, 1),
+        (0, 2),
+        (0, 3),
+        (0, 4),
+        (0, 5),
+        (1, 2),
+        (1, 3),
+        (1, 4),
+        (1, 5),
+        (2, 3),
+        (2, 4),
+        (2, 5),
+        (3, 4),
+        (3, 5),
+        (4, 5) 
+    }
+
     def getInitBoard(self):
         sg = SimGame()
         return sg.adj
@@ -43,7 +61,7 @@ class SimGameState(Game):
         return self.ACTION_TO_TUPLE[action]
 
     def getNextState(self, board: np, player, action):
-        if 0 <= action <= 14:
+        if not (0 <= action <= 14):
             logging.error(f"Invalid action {action} given!")
             return board, player
 
@@ -65,6 +83,8 @@ class SimGameState(Game):
         tuple_to_action = dict(zip(self.ACTION_TO_TUPLE.values(), self.ACTION_TO_TUPLE.keys()))
         legal_moves = sg.get_legal_moves(player)
         for legal_move in legal_moves:
+            if legal_move not in self.VALID_ACTIONS:
+                continue
             action_number = tuple_to_action[legal_move]
             valids[action_number] = 1
         return np.array(valids)

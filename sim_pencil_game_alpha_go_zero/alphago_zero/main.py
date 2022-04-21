@@ -33,7 +33,6 @@ args = dotdict({
 
 def main():
     log.info('Loading %s...', Game.__name__)
-    # g = Game(6)
     g = Game()
 
     torch.manual_seed(0)
