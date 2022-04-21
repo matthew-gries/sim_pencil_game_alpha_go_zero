@@ -6,8 +6,8 @@ from sim_pencil_game_alpha_go_zero.SimNNArch import SimNNArch
 import torch
 import torch.optim as optim
 import numpy as np
-import tqdm
 import os
+from tqdm import tqdm
 
 args = dotdict({
     'lr': 0.001,
@@ -15,6 +15,7 @@ args = dotdict({
     'epochs': 10,
     'batch_size': 64,
     'cuda': torch.cuda.is_available(),
+    'checkpoint': './temp/',
 })
 
 
@@ -26,6 +27,7 @@ class SimNN(NeuralNet):
         self.input_dim = (15, 3)
         self.nnet = SimNNArch(self.game, self.input_dim[0] * self.input_dim[1])
         self.device = 'cuda' if args.cuda else 'cpu'
+        self.training_iter = 0
 
         if args.cuda:
             self.nnet.cuda()
