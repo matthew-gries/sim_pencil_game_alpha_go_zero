@@ -105,6 +105,6 @@ def plot_min_max_avg_loss(iterations, epochs):
 
 
 if __name__ == "__main__":
-    plot_win_draw_accept()
-    # plot_losses(100, 10)
+    # plot_win_draw_accept()
+    plot_losses(100, 10)
     # plot_min_max_avg_loss(100, 10)
