@@ -1,3 +1,4 @@
+from typing import Tuple
 import torch
 import torch.nn as nn
 
@@ -17,7 +18,7 @@ class SimNNArch(nn.Module):
         self.policy_fc = nn.Linear(256, self.game.getActionSize())
         self.value_fc = nn.Linear(256, 1)
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         """x should be the one-hot encoding of each unique edge, size 15 x 3,
         where dimension 1 is the index corresponding to the edge in the graph and
         dimension 2 has a 1 at index 0 if player 1 has an edge, index 1 = 1 if
@@ -26,7 +27,7 @@ class SimNNArch(nn.Module):
         Returns the policy vector and the value of the state
         """
 
-        x = x.flatten()
+        x = x.flatten(start_dim=1)
         x = self.relu(self.fc1(x))
         x = self.relu(self.fc2(x))
         x = self.relu(self.fc3(x))
