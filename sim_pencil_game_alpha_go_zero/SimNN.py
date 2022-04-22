@@ -143,7 +143,7 @@ class SimNN(NeuralNet):
 
     def predict(self, board):
         # preparing input
-        board_rep = self.make_one_shot(board)
+        board_rep = self.make_one_shot(board).unsqueeze(0)
         if args.cuda:
             board_rep = board_rep.contiguous().cuda()
         self.nnet.eval()

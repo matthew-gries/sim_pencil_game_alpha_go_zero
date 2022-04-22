@@ -26,7 +26,7 @@ class SimNNArch(nn.Module):
         Returns the policy vector and the value of the state
         """
 
-        x = x.flatten()
+        x = x.flatten(start_dim=1)
         x = self.relu(self.fc1(x))
         x = self.relu(self.fc2(x))
         x = self.relu(self.fc3(x))
