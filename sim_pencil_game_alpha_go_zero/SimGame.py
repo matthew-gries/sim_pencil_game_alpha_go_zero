@@ -118,9 +118,11 @@ class SimGame:
             for j in range(6):
                 edge = self.adj[i][j]
                 if edge == 1:
-                    p1_edges.add((i, j))
+                    if (j, i) not in p1_edges:
+                        p1_edges.add((i, j))
                 elif edge == -1:
-                    p2_edges.add((i, j))
+                    if (j, i) not in p2_edges:
+                        p2_edges.add((i, j))
 
         return f"P1 edges:\n\t{p1_edges}\nP2 edges:\n\t{p2_edges}"
 

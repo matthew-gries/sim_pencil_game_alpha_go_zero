@@ -112,3 +112,8 @@ class SimGameState(Game):
 
     def stringRepresentation(self, board):
         return board.tostring()
+
+    @staticmethod
+    def display(board: np.ndarray):
+        sg = SimGame(board)
+        print(str(sg))

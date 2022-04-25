@@ -170,4 +170,6 @@ class SimNN(NeuralNet):
             raise ValueError("No model in path {}".format(filepath))
         map_location = None if args.cuda else 'cpu'
         checkpoint = torch.load(filepath, map_location=map_location)
+        print(map_location)
+        print(checkpoint)
         self.nnet.load_state_dict(checkpoint['state_dict'])
