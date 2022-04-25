@@ -53,22 +53,16 @@ class MinimaxPlayer(AbstractPlayer):
         print("Running minimax...")
         for i in range(self.game.getActionSize()):
             if valid_moves[i] == 1:
-                value = self.minimax(board, player, self.max_depth, alpha, beta)
+                next_state, next_player = self.game.getNextState(board, player, i)
+                value = self.minimax(next_state, next_player, self.max_depth, alpha, beta)
                 if player == self.game.PLAYER1:
                     if value > best_value:
                         best_value = value
                         best_move = i
-                    if best_value >= beta:
-                        break
-                    alpha = max(alpha, best_value)
                 else:
                     if value < best_value:
                         best_value = value
                         best_move = i
-                    if best_value <= alpha:
-                        break
-                    beta = min(beta, best_value)
-        
         return best_move
 
 
