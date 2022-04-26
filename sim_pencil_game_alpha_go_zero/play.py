@@ -8,6 +8,7 @@ from sim_pencil_game_alpha_go_zero.alphago_zero.utils import dotdict
 
 from pathlib import Path
 
+
 MODEL_FOLDER = str(Path.home() / "Desktop" / "sim100iter100eps25sim10epoch")
 
 MODEL_NAME = "best.pth.tar"
