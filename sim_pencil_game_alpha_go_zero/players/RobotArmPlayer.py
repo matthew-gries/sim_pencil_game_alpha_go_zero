@@ -27,5 +27,7 @@ class RobotArmPlayer(AbstractPlayer):
         action = self.driver.play(board)
         node_a, node_b = self.game.ACTION_TO_TUPLE[action]
         self.robot.move_arm_jpos(JPOS_POSITIONS[node_a])
+        self.robot.move_arm_jpos(HOME_JPOS)
         self.robot.move_arm_jpos(JPOS_POSITIONS[node_b])
+        self.robot.move_arm_jpos(HOME_JPOS)
         return action

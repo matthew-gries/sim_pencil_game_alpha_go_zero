@@ -6,7 +6,8 @@ from pathlib import Path
 import numpy as np
 
 # DATA_DIRECTORY = Path(__file__).parent / "alphago_zero" / "temp"
-DATA_DIRECTORY = Path.home() / "Desktop" / "temp"
+# DATA_DIRECTORY = Path.home() / "Desktop" / "trainsim100iter100eps10epoch25sim"
+DATA_DIRECTORY = Path.home() / "Desktop" / "trainsim100iter1000eps20epoch100sim"
 
 
 def plot_win_draw_accept():
@@ -106,5 +107,5 @@ def plot_min_max_avg_loss(iterations, epochs):
 
 if __name__ == "__main__":
     # plot_win_draw_accept()
-    # plot_losses(100, 10)
-    plot_min_max_avg_loss(100, 10)
+    # plot_losses(100, 20)
+    plot_min_max_avg_loss(100, 20)

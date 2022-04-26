@@ -10,11 +10,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-MODEL_FOLDER = str(Path.home() / "Desktop" / "sim100iter100eps25sim10epoch")
-MODEL_NAME = "best.pth.tar"
+# MODEL_FOLDER = str(Path.home() / "Desktop" / "trainsim100iter1000eps20epoch100sim")
+# MODEL_NAME = "best.pth.tar"
 
-OLD_MODEL_FOLDER = str(Path.home() / "Desktop" / "sim100iter100eps25sim10epoch")
-OLD_MODEL_NAME = "best.pth.tar"
+# OLD_MODEL_FOLDER = str(Path.home() / "Desktop" / "trainsim100iter100eps10epoch25sim")
+# OLD_MODEL_NAME = "best.pth.tar"
+
+MODEL_FOLDER = str(Path.home() / "Desktop" / "trainsim100iter100eps10epoch25sim")
+MODEL_NAME = "best.pth.tar"
 
 def main():
     game = SimGameState()
@@ -23,20 +26,20 @@ def main():
     mp = MinimaxPlayer(game, max_depth=10, player=-1)
     gp = GreedyPlayer(game, player=-1)
     rp = RandomPlayer(game, player=-1)
-    np = NNPlayer(game, args, OLD_MODEL_FOLDER, OLD_MODEL_NAME)
+    # nnp = NNPlayer(game, args, OLD_MODEL_FOLDER, OLD_MODEL_NAME)
     mp_arena = Arena(model_player.play, mp.play, game, SimGameState.display)
     gp_arena = Arena(model_player.play, gp.play, game, SimGameState.display)
     rp_arena = Arena(model_player.play, rp.play, game, SimGameState.display)
-    np_arena = Arena(model_player.play, np.play, game, SimGameState.display)
+    # np_arena = Arena(model_player.play, nnp.play, game, SimGameState.display)
 
     mp_p1_wins, mp_p2_wins, _ = mp_arena.playGames(40, verbose=True)
     gp_p1_wins, gp_p2_wins, _ = gp_arena.playGames(40, verbose=True)
     rp_p1_wins, rp_p2_wins, _ = rp_arena.playGames(40, verbose=True)
-    np_p1_wins, np_p2_wins, _ = np_arena.playGames(40, verbose=True)
+    # np_p1_wins, np_p2_wins, _ = np_arena.playGames(40, verbose=True)
 
-    labels = ["Random Player", "Greedy Player", "Minimax Player", "Other Model"]
-    p1_counts = [rp_p1_wins, gp_p1_wins, mp_p1_wins, np_p1_wins]
-    p2_counts = [rp_p2_wins, gp_p2_wins, mp_p2_wins, np_p2_wins]
+    labels = ["Random Player", "Greedy Player", "Minimax Player"]
+    p1_counts = [rp_p1_wins, gp_p1_wins, mp_p1_wins]
+    p2_counts = [rp_p2_wins, gp_p2_wins, mp_p2_wins]
 
     x = np.arange(len(labels))
     width = 0.35
@@ -47,7 +50,7 @@ def main():
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Player 2 Player Type')
-    ax.set_title('100 iterations, 1000 Episodes, 100 MCTS Sims vs Other Players')
+    ax.set_title('100 iterations, 100 Episodes, 25 MCTS Sims, 10 Epochs vs Other Players')
     ax.set_xticks(x, labels)
     ax.legend()
 
