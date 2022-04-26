@@ -16,10 +16,10 @@ MODEL_NAME = "best.pth.tar"
 def main():
     game = SimGameState()
     args = dotdict({'numMCTSSims': 50, 'cpuct':1.0})
-    # p1 = NNPlayer(game, args, MODEL_FOLDER, MODEL_NAME)
-    p1 = MinimaxPlayer(game, max_depth=10, player=1)
-    # p2 = HumanPlayer(game, player=-1)
-    p2 = RandomPlayer(game, player=-1)
+    p1 = NNPlayer(game, args, MODEL_FOLDER, MODEL_NAME)
+    # p1 = MinimaxPlayer(game, max_depth=10, player=1)
+    p2 = HumanPlayer(game, player=-1)
+    # p2 = RandomPlayer(game, player=-1)
     arena = Arena(p1.play, p2.play, game, SimGameState.display)
 
     p1_wins, p2_wins, draws = arena.playGames(10, verbose=True)
